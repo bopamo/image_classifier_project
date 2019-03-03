@@ -145,7 +145,7 @@ def get_predict_input_args():
                         help='A JSON file with index to string mappings of type "*.json"')
 
     # Argument 5: that's GPU
-    parser.add_argument('--gpu', action="store_true", default=True,
+    parser.add_argument('-g', '--gpu', action="store_true", default=True,
                         help='Flag for enabling GPU')
 
     # parser.add_argument("-b", "--bandwidth", type=bandwidth_type, help="target bandwidth >= 12")
