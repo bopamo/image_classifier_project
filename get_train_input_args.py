@@ -131,7 +131,7 @@ def get_input_args():
                         help='Number of cycles at which the model is trained')
 
     # Argument 7: that's GPU
-    parser.add_argument('--gpu', action="store_true", default=True,
+    parser.add_argument('-g', '--gpu', action="store_true", default=True,
                         help='Flag for enabling GPU')
 
     args = parser.parse_args()

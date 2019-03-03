@@ -148,8 +148,6 @@ def get_predict_input_args():
     parser.add_argument('-g', '--gpu', action="store_true", default=True,
                         help='Flag for enabling GPU')
 
-    # parser.add_argument("-b", "--bandwidth", type=bandwidth_type, help="target bandwidth >= 12")
-
     args = parser.parse_args()
 
     # Validate image path and file
