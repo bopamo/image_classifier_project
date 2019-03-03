@@ -67,7 +67,7 @@ def set_device():
 # Image utility functions
 
 def load_checkpoint(file_path, device):
-    if device is 'cpu':
+    if device == torch.device('cpu'):
         logger.debug("Loading model with CPU")
         checkpoint = torch.load(file_path, map_location=device)
         model = checkpoint['model']
