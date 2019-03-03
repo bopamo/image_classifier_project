@@ -31,6 +31,8 @@ def main():
 
     print(sys.version)
 
+    logger.info("torch.version : {}".format(torch.version.__version__))
+
     # Replace sleep(75) below with code you want to time
     #     sleep(0)
 
@@ -39,9 +41,11 @@ def main():
     # the user running the program from a terminal window. This function returns
     # the collection of these command line arguments from the function call as
     # the variable in_arg
-    print(spacing_string)
-    step_1 = "TODO 1: Get input arguments with the function get_predict_input_args()"
-    logger.info(step_1)
+
+    step = "TODO 1: Get input arguments with the function get_predict_input_args()"
+    log_program_step(step)
+
+
     in_arg = get_predict_input_args()
 
     # Function that checks command line arguments using in_arg
@@ -53,13 +57,16 @@ def main():
     top_k = in_arg.top_k
     mapping_file = in_arg.category_names
     GPU_FLAG = in_arg.gpu
-    # GPU_FLAG = in_arg.gpu
+
+    GPU_FLAG = False
 
     logger.info("image \t: {}".format(image_file))
     logger.info("checkpoint \t: {}".format(checkpoint_file))
     logger.info("top_k \t: {}".format(top_k))
     logger.info("mapping \t: {}".format(mapping_file))
     logger.info("GPU \t: {}".format(GPU_FLAG))
+
+
 
     device = get_device(GPU_FLAG)
 
@@ -72,10 +79,9 @@ def main():
     #             get_pet_labels(in_arg.dir)
     # This function creates the results dictionary that contains the results,
     # this dictionary is returned from the function call as the variable results
-    print(spacing_string)
 
-    step_2 = "TODO 2: Load and verify the checkpoint"
-    logger.info(step_2)
+    step = "TODO 2: Load and verify the checkpoint"
+    log_program_step(step)
 
     PATH_OF_CHECKPOINT_FILE = checkpoint_file
 
@@ -105,13 +111,12 @@ def main():
     # Creates Classifier Labels with classifier function, Compares Labels,
     # and adds these results to the results dictionary - results
     # classify_images(in_arg.dir, results, in_arg.arch)
-    print(spacing_string)
 
-    step_3 = "TODO 2: Load the data from the data directory"
-    logger.info(step_3)
+    step = "TODO 2: Load the data from the data directory"
+    log_program_step(step)
 
-    with Image.open(image_file) as image:
-        plt.imshow(image)
+    # with Image.open(image_file) as image:
+    #     plt.imshow(image)
 
     # TODO 4: Class Prediction
     # Once the adjust_results4_isadog function has been defined replace 'None'
@@ -124,14 +129,13 @@ def main():
     # adjust_results4_isadog(results, in_arg.dogfile)
 
     # Function that checks Results Dictionary for is-a-dog adjustment using results
-    print(spacing_string)
+
+    step = "TODO 4: Class Prediction"
+    log_program_step(step)
 
     PATH_OF_IMAGE_FILE = image_file
 
     logger.info("PATH_OF_IMAGE_FILE : {}".format(PATH_OF_IMAGE_FILE))
-
-    step_4 = "TODO 4: Class Prediction"
-    logger.info(step_4)
 
     probs, labels = get_predictions(PATH_OF_IMAGE_FILE, saved_model.to(device), device, top_k)
 
@@ -147,10 +151,9 @@ def main():
     # Calculates results of run and puts statistics in the Results Statistics
     # Dictionary - called results_stats
     # results_stats = calculates_results_stats(results)
-    print(spacing_string)
 
-    step_5 = "TODO 5 Sanity Checking"
-    logger.info(step_5)
+    step = "TODO 5 Sanity Checking"
+    log_program_step(step)
 
 
     # TODO 6: Perform test inference on saved model to make sure

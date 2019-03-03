@@ -14,6 +14,8 @@
 
 
 # Imports functions created for this program
+import os
+
 from classifier import *
 
 from logger import *
@@ -23,10 +25,16 @@ from utilities_functions import *
 
 # Main program function defined below
 def main():
-    # TODO 0: Measures total program runtime by collecting start time
+    # TODO 0: Check Versions
+
+
+    step = "TODO 0: Check Versions"
+    log_program_step(step)
     # start_time = time()
 
     print(sys.version)
+
+    logger.info("torch.version : {}".format(torch.version.__version__))
 
     # logging.warning('Watch out!')  # will print a message to the console
     # logger.debug("this is a debugging message")
@@ -41,6 +49,10 @@ def main():
     # the user running the program from a terminal window. This function returns
     # the collection of these command line arguments from the function call as
     # the variable in_arg
+
+    step = "TODO 1: Define get_input_args function within the file get_train_input_args.py"
+    log_program_step(step)
+
     in_arg = get_input_args()
 
     # Function that checks command line arguments using in_arg
@@ -54,6 +66,8 @@ def main():
     learning_rate = in_arg.learning_rate
     epochs = in_arg.epochs
     GPU_FLAG = in_arg.gpu
+
+    GPU_FLAG = False
 
     logger.info("data_directory : {}".format(data_directory))
     logger.info("save_directory : {}".format(save_directory))
@@ -77,6 +91,10 @@ def main():
     #             get_pet_labels(in_arg.dir)
     # This function creates the results dictionary that contains the results,
     # this dictionary is returned from the function call as the variable results
+
+    step = "TODO 2: Load the data from the data directory"
+    log_program_step(step)
+
     image_datasets = get_image_dataset(in_arg.data_dir)
 
     dataloaders = get_dataloader(image_datasets)
@@ -106,6 +124,9 @@ def main():
     # Creates Classifier Labels with classifier function, Compares Labels,
     # and adds these results to the results dictionary - results
     # classify_images(in_arg.dir, results, in_arg.arch)
+
+    step = "TODO 3: Define, build and train the network"
+    log_program_step(step)
 
     logger.info("Testing classifier...")
 
@@ -175,10 +196,12 @@ def main():
     # model can correctly classify dog images as dogs (regardless of breed)
     # adjust_results4_isadog(results, in_arg.dogfile)
 
-    # Function that checks Results Dictionary for is-a-dog adjustment using results
+    step = "TODO 4: Save the checkpoint"
+    log_program_step(step)
+
     trained_model.class_to_idx = image_datasets['train'].class_to_idx
 
-    # logger.info("save_directory : {}".format(save_directory))
+    logger.info("save_directory : {}".format(save_directory))
 
     if model_name == 'densenet':
         checkpoint_file_name = "densenet_model_checkpoint.pth"
@@ -204,8 +227,6 @@ def main():
                               'class_to_idx': trained_model.class_to_idx
                               }
 
-
-
     logger.info("save_directory : {}".format(save_directory))
 
     PATH_TO_SAVE_CHECKPOINT = os.path.join(save_directory, checkpoint_file_name)  # inserting a list of strings os.path.join
@@ -213,6 +234,8 @@ def main():
     logger.info("PATH_OF_CHECKPOINT : {}".format(PATH_TO_SAVE_CHECKPOINT))
 
     torch.save(checkpoint_to_be_saved, PATH_TO_SAVE_CHECKPOINT)
+
+    logger.info("checkpoint_to_be_saved successfully saved...")
 
     # Loading the checkpoint
     # with active_session():
@@ -229,6 +252,9 @@ def main():
     # Calculates results of run and puts statistics in the Results Statistics
     # Dictionary - called results_stats
     # results_stats = calculates_results_stats(results)
+
+    step = "TODO 5: Verify the checkpoint can be loaded"
+    log_program_step(step)
 
     device = get_device(GPU_FLAG)
 
@@ -267,6 +293,10 @@ def main():
     # Prints summary results, incorrect classifications of dogs (if requested)
     # and incorrectly classified breeds (if requested)
     # print_results(results, results_stats, in_arg.arch, True, True)
+
+    step = "TODO 6: Perform test inference on saved model to make sure"
+    log_program_step(step)
+
 
     PATH_OF_IMAGE_FILE = 'flowers/test/69/image_05959.jpg'
 
