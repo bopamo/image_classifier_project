@@ -111,7 +111,7 @@ def get_input_args():
     # Create 3 optional command line arguments as mentioned above using add_argument() from ArguementParser method
 
     # Argument 2: that's a path to a folder
-    parser.add_argument('--save_dir', type=dir_type, default='./z_testing_savings__models/',
+    parser.add_argument('--save_dir', type=dir_type, default='./trained_models/',
                         help="Path to which the trained model should be saved")
 
     # Argument 3: that's the CNN Model Architecture
@@ -153,33 +153,13 @@ def get_input_args():
 
 def validate_path(directory_path):
     if os.path.exists(directory_path):
-        # logger.debug("DIR: {}".format(directory_path))
+        logger.debug("DIR: {}".format(directory_path))
         return None
 
     logger.error("invalid path...")
     sys.exit(1)
     return None  # this line is unreachable
 
-
-# def parse_arguments():
-#     """"Creates and returns the ArgumentParser object."""
-#     parser = argparse.ArgumentParser()
-#     parser.add_argument("data_dir", help="path to a data directory")
-#     parser.add_argument("--save_dir", help="path to which the trained model should be saved")
-#     parser.add_argument("--arch", help="the model architecture")
-#     parser.add_argument("--learning_rate", help="the rate at which the model is trained")
-#     parser.add_argument("--epochs", help="epochs")
-#     parser.add_argument("--gpu", help="flag for enabling GPU")
-#     args = parser.parse_args()
-#
-#     validate_path(args.data_directory)
-#
-#     print(args.data_directory)
-#
-#     if args.save_dir:
-#         validate_path(args.save_dir)
-#         print("the model will be save to: {}".format(args.save_dir))
-#
 
 # Functions below defined to help with "Checking your code", specifically
 # running these functions with the appropriate input arguments within the
@@ -217,22 +197,13 @@ def get_device_arg():
 
     if in_arg.gpu is True:
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        print("GPU is set")
+        logger.debug("GPU is set")
 
     else:
         device = torch.device("cpu")
-        print("GPU is NOT set")
+        logger.debug("GPU is NOT set")
 
-    print(device)
-
-    # train_on_gpu = torch.cuda.is_available()
-    #
-    # print_cute('*', 20)
-    # if not train_on_gpu:
-    #     print('Bummer!  Training on CPU ...')
-    # else:
-    #     print('You are good to go!  Training on GPU ...')
-    # print_cute('*', 20)
+    logger.debug(device)
 
     return device
 

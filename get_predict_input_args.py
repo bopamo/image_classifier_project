@@ -214,21 +214,10 @@ def get_device_arg():
 
     if in_arg.gpu is True:
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        print("GPU is set")
+        logger.debug("GPU is set")
 
     else:
         device = torch.device("cpu")
-        print("GPU is NOT set")
-
-    print(device)
-
-    # train_on_gpu = torch.cuda.is_available()
-    #
-    # print_cute('*', 20)
-    # if not train_on_gpu:
-    #     print('Bummer!  Training on CPU ...')
-    # else:
-    #     print('You are good to go!  Training on GPU ...')
-    # print_cute('*', 20)
+        logger.debug("GPU is NOT set")
 
     return device

@@ -9,7 +9,7 @@ spacing_string = "\n"
 
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 # create file handler which logs even debug messages
 # fh = logging.FileHandler('logs.log')
@@ -17,16 +17,18 @@ logger.setLevel(logging.DEBUG)
 
 # create console handler with a higher log level
 ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
+ch.setLevel(logging.INFO)
 
 # create a logging format
 F = "  %(log_color)s%(levelname)-8s%(reset)s | %(log_color)s%(message)s%(reset)s"
-LOG_FORMAT = "[%(levelname)s]  \t%(filename)s : %(funcName)s() : line #: %(lineno)d | %(message)s"
+LOG_FORMAT_VERBOSE = "[%(levelname)s]  \t%(filename)s : %(funcName)s() : line #: %(lineno)d | %(message)s"
+
+LOG_FORMAT_MINIMAL = "%(message)s"
 
 
 # create formatter and add it to the handlers
 
-formatter = logging.Formatter(LOG_FORMAT)
+formatter = logging.Formatter(LOG_FORMAT_MINIMAL)
 # fh.setFormatter(formatter)
 ch.setFormatter(formatter)
 

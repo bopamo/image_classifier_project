@@ -23,28 +23,31 @@
 from get_predict_input_args import *
 from utilities_functions import *
 
+import time
+
 
 # Main program function defined below
 def main():
-    # TODO 0: Measures total program runtime by collecting start time
-    # start_time = time()
+    # STEP 0: Check Versions
+    #################################################################################
+    #################################################################################
+    #################################################################################
 
-    print(sys.version)
-
-    logger.info("torch.version : {}".format(torch.version.__version__))
-
-    # Replace sleep(75) below with code you want to time
-    #     sleep(0)
-
-    # TODO 1: Get input arguments with the function get_predict_input_args()
-    # This function retrieves 3 Command Line Arugments from user as input from
-    # the user running the program from a terminal window. This function returns
-    # the collection of these command line arguments from the function call as
-    # the variable in_arg
-
-    step = "TODO 1: Get input arguments with the function get_predict_input_args()"
+    step = "STEP 0: Check Versions"
     log_program_step(step)
+    start_time = time.time()
 
+    logger.debug(sys.version)
+
+    logger.debug("torch.version : {}".format(torch.version.__version__))
+
+    # STEP 1: Get input arguments with the function get_predict_input_args()
+    #################################################################################
+    #################################################################################
+    #################################################################################
+
+    step = "STEP 1: Get input arguments with the function get_predict_input_args()"
+    log_program_step(step)
 
     in_arg = get_predict_input_args()
 
@@ -58,119 +61,59 @@ def main():
     mapping_file = in_arg.category_names
     GPU_FLAG = in_arg.gpu
 
-    GPU_FLAG = False
-
-    logger.info("image \t: {}".format(image_file))
-    logger.info("checkpoint \t: {}".format(checkpoint_file))
-    logger.info("top_k \t: {}".format(top_k))
-    logger.info("mapping \t: {}".format(mapping_file))
-    logger.info("GPU \t: {}".format(GPU_FLAG))
-
-
+    logger.debug("image \t: {}".format(image_file))
+    logger.debug("checkpoint \t: {}".format(checkpoint_file))
+    logger.debug("top_k \t: {}".format(top_k))
+    logger.debug("mapping \t: {}".format(mapping_file))
+    logger.debug("GPU \t: {}".format(GPU_FLAG))
 
     device = get_device(GPU_FLAG)
 
-    logger.info("GPU \t: {}".format(device))
+    logger.debug("GPU \t: {}".format(device))
 
-    # TODO 2: Load and verify the checkpoint
-    # Once the get_pet_labels function has been defined replace 'None'
-    # in the function call with in_arg.dir  Once you have done the replacements
-    # your function call should look like this:
-    #             get_pet_labels(in_arg.dir)
-    # This function creates the results dictionary that contains the results,
-    # this dictionary is returned from the function call as the variable results
+    # STEP 2: Load and verify the checkpoint
+    #################################################################################
+    #################################################################################
+    #################################################################################
 
-    step = "TODO 2: Load and verify the checkpoint"
+    step = "STEP 2: Load the checkpoint and retrieve trained model"
     log_program_step(step)
 
     PATH_OF_CHECKPOINT_FILE = checkpoint_file
 
-    logger.debug("Retrieving saved model..")
+    logger.debug("Retrieving trained model..")
     saved_model, class_to_idx, _, _ = load_checkpoint(PATH_OF_CHECKPOINT_FILE, device)
 
-    logger.debug("Saved model successfully retrieved..")
+    logger.info("Trained model successfully retrieved..")
 
-    logger.info(type(saved_model))
+    logger.debug(type(saved_model))
 
-    logger.info(type(class_to_idx))
+    logger.debug(type(class_to_idx))
 
-    # logger.info(type(saved_epochs))
-    #
-    # logger.info(type(saved_optimizer))
+    # STEP 3: Class Prediction
+    # Predict top k classes
+    #################################################################################
+    #################################################################################
+    #################################################################################
 
-    # logger.info("NN  \t: \n{}".format(saved_model))
-
-    # logger.info("class_to_idx  \t: \n{}".format(class_to_idx))
-
-    # TODO 3: Process Image
-    # Once the classify_images function has been defined replace first 'None'
-    # in the function call with in_arg.dir and replace the last 'None' in the
-    # function call with in_arg.arch  Once you have done the replacements your
-    # function call should look like this:
-    #             classify_images(in_arg.dir, results, in_arg.arch)
-    # Creates Classifier Labels with classifier function, Compares Labels,
-    # and adds these results to the results dictionary - results
-    # classify_images(in_arg.dir, results, in_arg.arch)
-
-    step = "TODO 2: Load the data from the data directory"
-    log_program_step(step)
-
-    # with Image.open(image_file) as image:
-    #     plt.imshow(image)
-
-    # TODO 4: Class Prediction
-    # Once the adjust_results4_isadog function has been defined replace 'None'
-    # in the function call with in_arg.dogfile  Once you have done the
-    # replacements your function call should look like this:
-    #          adjust_results4_isadog(results, in_arg.dogfile)
-    # Adjusts the results dictionary to determine if classifier correctly
-    # classified images as 'a dog' or 'not a dog'. This demonstrates if
-    # model can correctly classify dog images as dogs (regardless of breed)
-    # adjust_results4_isadog(results, in_arg.dogfile)
-
-    # Function that checks Results Dictionary for is-a-dog adjustment using results
-
-    step = "TODO 4: Class Prediction"
+    step = "STEP 3: Class Prediction"
     log_program_step(step)
 
     PATH_OF_IMAGE_FILE = image_file
 
-    logger.info("PATH_OF_IMAGE_FILE : {}".format(PATH_OF_IMAGE_FILE))
+    logger.debug("PATH_OF_IMAGE_FILE : {}".format(PATH_OF_IMAGE_FILE))
 
-    probs, labels = get_predictions(PATH_OF_IMAGE_FILE, saved_model.to(device), device, top_k)
+    probs, labels = get_predictions(PATH_OF_IMAGE_FILE, saved_model.to(device), top_k)
 
     print(probs)
     print(labels)
 
-
-
-    # TODO 5: Sanity Checking
-    # This function creates the results statistics dictionary that contains a
-    # summary of the results statistics (this includes counts & percentages). This
-    # dictionary is returned from the function call as the variable results_stats
-    # Calculates results of run and puts statistics in the Results Statistics
-    # Dictionary - called results_stats
-    # results_stats = calculates_results_stats(results)
-
-    step = "TODO 5 Sanity Checking"
-    log_program_step(step)
-
-
-    # TODO 6: Perform test inference on saved model to make sure
-    # Once the print_results function has been defined replace 'None'
-    # in the function call with in_arg.arch  Once you have done the
-    # replacements your function call should look like this:
-    #      print_results(results, results_stats, in_arg.arch, True, True)
-    # Prints summary results, incorrect classifications of dogs (if requested)
-    # and incorrectly classified breeds (if requested)
-    # print_results(results, results_stats, in_arg.arch, True, True)
-
     # TODO 0: Measure total program runtime by collecting end time
-    # end_time = time()
+    end_time = time.time()
 
     # TODO 0: Computes overall runtime in seconds & prints it in hh:mm:ss format
     print(spacing_string)
-    tot_time = 0  # end_time - start_time
+    tot_time = end_time - start_time
     # print("\n** Total Elapsed Runtime:",
     #       str(int((tot_time / 3600))) + ":" + str(int((tot_time % 3600) / 60)) + ":"
     #       + str(int((tot_time % 3600) % 60)))
