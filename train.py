@@ -88,7 +88,6 @@ def main():
     for num in range(random_count):
         get_random_image_and_label(dataloaders['valid'])
 
-
     # STEP 3: Define, build and train the network
     #################################################################################
     #################################################################################
@@ -127,12 +126,17 @@ def main():
 
     logger.info("Model successfully trained....\n\n")
 
-    logger.info("Begin checking model accuracy....")
+    logger.info("Begin checking 'valid' model accuracy....")
 
-    # check_model_accuracy(trained_model, device, dataloaders['valid'])
-    # check_model_accuracy(trained_model, device, dataloaders['test'])
+    check_model_accuracy(trained_model, device, dataloaders['valid'])
 
-    logger.info("Finished checking model accuracy....")
+    logger.info("Finished checking 'valid' model accuracy....")
+
+    logger.info("Begin checking 'test' model accuracy....")
+
+    check_model_accuracy(trained_model, device, dataloaders['test'])
+
+    logger.info("Finished checking 'test' model accuracy....")
 
     # STEP 4: Save the checkpoint
     #################################################################################
