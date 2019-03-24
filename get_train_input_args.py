@@ -115,7 +115,7 @@ def get_input_args():
                         help="Path to which the trained model should be saved")
 
     # Argument 3: that's the CNN Model Architecture
-    parser.add_argument('--arch', type=str, default='densenet', choices=['densenet', 'vgg'],
+    parser.add_argument('-a', '--arch', type=str, default='densenet', choices=['densenet', 'vgg'],
                         help='CNN Model Architecture')
 
     # Argument 4: that's the model's hidden units count
